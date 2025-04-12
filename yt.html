@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Nhúng YouTube Video</title>
+  <link rel="stylesheet" href="yt.css">
+</head>
+<body>
+  <h2>Nhúng video YouTube bằng link</h2>
+  <input type="text" id="youtubeLink" placeholder="Dán link YouTube vào đây...">
+  <button onclick="embedVideo()">Nhúng</button>
+
+  <div id="videoContainer">
+    <iframe id="youtubeIframe" src="" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    function getYoutubeID(url) {
+      const regExp = /(?:youtube\.com\/.*v=|youtu\.be\/)([^&#?/]+)/;
+      const match = url.match(regExp);
+      return match ? match[1] : null;
+    }
+
+    function embedVideo() {
+      const input = document.getElementById('youtubeLink').value.trim();
+      const videoID = getYoutubeID(input);
+
+      if (videoID) {
+        const embedURL = `https://www.youtube.com/embed/${videoID}`;
+        document.getElementById('youtubeIframe').src = embedURL;
+      } else {
+        alert("Vui lòng nhập link YouTube hợp lệ.");
+      }
+    }
+  </script>
+</body>
+</html>
